@@ -8,13 +8,12 @@ const main = async () => {
   const salt = await bcrypt.genSalt(10)
   const password = await bcrypt.hash('password', salt)
 
-  await prisma.users.create({
+  await prisma.usuarios.create({
     data: {
       cpf: '11052557600',
       email: 'xguilherme1@gmail.com',
       name: 'Guilherme Xavier Martins',
       phone: '33998364168',
-      sex: 'm', 
       active: true,
       role: ROLE.SUPERADMIN, 
       password: password,
