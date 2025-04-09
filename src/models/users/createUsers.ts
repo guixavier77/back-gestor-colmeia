@@ -3,8 +3,6 @@ export interface CreateUserParams {
     email: string
     name: string
     phone: string
-    sex: string
-    birthDate: string
     active: boolean
     role: string
     password: string
@@ -14,11 +12,6 @@ export interface UserUpdate extends CreateUserParams {
     id: number;
 }
 
-
-export interface UserAuth {
-    email: string
-    password: string
-}
 
 export type  CreateUserServiceResponse  = {
 

@@ -10,9 +10,9 @@ export class UserRepository {
 
 
     public async create(params: CreateUserParams): Promise<CreateUserRepositoryResponse> {
-      const {usuarios: UsersDB} = prisma;
+      const {usuarios: UsersRepository} = prisma;
 
-      const alreadyUser = await UsersDB.findFirst({
+      const alreadyUser = await UsersRepository.findFirst({
         where: {
           OR: [
             { cpf: params.cpf },
@@ -27,7 +27,7 @@ export class UserRepository {
         }
       }
   
-      const user = await UsersDB.create({
+      const user = await UsersRepository.create({
         data: {
             ...params,
         }

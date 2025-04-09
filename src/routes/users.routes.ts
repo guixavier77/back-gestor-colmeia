@@ -4,23 +4,33 @@ import { adapt } from './adapter/express-adapter';
 import { Controller } from '../controllers/protocols/controller.protocols';
 import { UserRepository } from '../repositories/userRepository';
 import CreateUserService from '../services/users/createUser.service';
+import AuthUserController from '../controllers/users/authUser.controller';
+import AuthUserService from '../services/users/authUser.service';
+import { AuthRepository } from '../repositories/authRepository';
 
 const usersRouter = Router();
 
 
 const makeCreateUserController = (): Controller => {  
-
   const userRepository = new UserRepository();
-
   const createUserService = new CreateUserService(userRepository);
   const createUserController = new CreateUserController(createUserService);
 
   return createUserController;
 };
 
+const makeAuthUserController = (): Controller => {  
+  const authRepository = new AuthRepository();
+  const authUserService = new AuthUserService(authRepository);
+  const authUserController = new AuthUserController(authUserService);
+
+  return authUserController;
+};
+
 
 usersRouter
-  .post('/users', adapt(makeCreateUserController()));
+  .post('/users', adapt(makeCreateUserController()))
+  .post('/auth', adapt(makeAuthUserController()));
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);
 // usersRouter.put('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.update);
