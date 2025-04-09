@@ -1,4 +1,5 @@
-export type CreateApiaristParams = {
+export type UpdateApiaristParams = {
+  id: number;
   cpf: string;
   name: string;
   phone: string;
@@ -6,7 +7,7 @@ export type CreateApiaristParams = {
   longitude: string;
 }
 
-export type CreateApiaristServiceResponse = {
+export type UpdateApiaristServiceResponse = {
   data?: {
     id: number;
     name: string;
@@ -18,4 +19,4 @@ export type CreateApiaristServiceResponse = {
   error?: string;
 }
 
-export type CreateApiaristRepositoryResponse = CreateApiaristServiceResponse
+export type UpdateApiaristRepositoryResponse = UpdateApiaristServiceResponse

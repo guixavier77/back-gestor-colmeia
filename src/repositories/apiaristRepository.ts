@@ -2,6 +2,7 @@
 
 import { CreateApiaristParams, CreateApiaristRepositoryResponse } from "../models/apiarist/createApiarist";
 import { GetAllApiaristRepositoryResponse } from "../models/apiarist/getAllApiarist";
+import { UpdateApiaristParams, UpdateApiaristRepositoryResponse } from "../models/apiarist/updateApiarist";
 import { PrismaHelper } from "./helpers";
 const { prisma } = PrismaHelper;
 
@@ -33,7 +34,9 @@ export class ApiaristRepository {
         id: apiarist.id,
         name: apiarist.name,
         cpf: apiarist.cpf,
-        phone: apiarist.phone
+        phone: apiarist.phone,
+        latitude: apiarist.latitude,
+        longitude: apiarist.longitude
       }
     }
   }
@@ -45,6 +48,41 @@ export class ApiaristRepository {
 
     return { 
       data: apiarists
+    }
+  }
+
+
+  public async update(params: UpdateApiaristParams): Promise<UpdateApiaristRepositoryResponse> {
+    const {apicultores: ApiaristRepository} = prisma;
+    const {cpf,id,latitude,longitude,name,phone} = params;
+
+    const existingCpf = await ApiaristRepository.findFirst({
+      where: {
+        cpf,
+        NOT: {
+          id
+        }
+      }
+    })
+
+    if(existingCpf){
+      return {error:  'CPF já existe!'}
+    }
+    const apiarist = await ApiaristRepository.update({
+      where: {
+        id
+      },
+      data: {
+        cpf,
+        latitude,
+        longitude,
+        name,
+        phone
+      }
+    });
+
+    return { 
+      data: apiarist
     }
   }
 }

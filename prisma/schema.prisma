@@ -21,8 +21,10 @@ model Usuarios {
 }
 
 model Apicultores {
-    id    Int    @id @default(autoincrement())
-    name  String
-    phone String
-    cpf   String @unique @db.VarChar(255)
+    id        Int    @id @default(autoincrement())
+    name      String
+    phone     String
+    cpf       String @unique @db.VarChar(255)
+    latitude  String @db.VarChar(255)
+    longitude String @db.VarChar(255)
 }
