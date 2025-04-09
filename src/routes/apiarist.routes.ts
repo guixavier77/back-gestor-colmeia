@@ -8,6 +8,8 @@ import { adapt } from './adapter/express-adapter';
 import { ApiaristRepository } from '../repositories/apiaristRepository';
 import CreateApiaristService from '../services/apiarist/createApiarist.service';
 import CreateApiaristController from '../controllers/apiarist/createApiarist.controller';
+import GetAllApiaristService from '../services/apiarist/getAllApiarist.service';
+import GetAllApiaristController from '../controllers/apiarist/getAllApiarist.controller';
 
 const apiaristRouter = Router();
 
@@ -20,11 +22,22 @@ const makeCreateApiaristController = (): Controller => {
   return createApiaristController;
 };
 
+const makeGetAllApiaristController = (): Controller => {  
+  const apiaristRepository = new ApiaristRepository();
+  const apiaristService = new GetAllApiaristService(apiaristRepository);
+  const apiaristController = new GetAllApiaristController(apiaristService);
+
+  return apiaristController;
+};
+
+
+
 
 
 
 apiaristRouter
   .post('/apiarist/create', auth, adapt(makeCreateApiaristController()))
+  .get('/apiarist/list', auth, adapt(makeGetAllApiaristController()))
 
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);

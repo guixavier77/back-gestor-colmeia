@@ -1,6 +1,7 @@
 
 
 import { CreateApiaristParams, CreateApiaristRepositoryResponse } from "../models/apiarist/createApiarist";
+import { GetAllApiaristRepositoryResponse } from "../models/apiarist/getAll";
 import { PrismaHelper } from "./helpers";
 const { prisma } = PrismaHelper;
 
@@ -33,6 +34,16 @@ export class ApiaristRepository {
         name: apiarist.name,
         cpf: apiarist.cpf
       }
+    }
+  }
+
+  public async getAll(): Promise<GetAllApiaristRepositoryResponse> {
+    const {apicultores: ApiaristRepository} = prisma;
+
+    const apiarists = await ApiaristRepository.findMany();
+
+    return { 
+      data: apiarists
     }
   }
 }
