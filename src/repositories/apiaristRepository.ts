@@ -1,7 +1,7 @@
 
 
 import { CreateApiaristParams, CreateApiaristRepositoryResponse } from "../models/apiarist/createApiarist";
-import { GetAllApiaristRepositoryResponse } from "../models/apiarist/getAll";
+import { GetAllApiaristRepositoryResponse } from "../models/apiarist/getAllApiarist";
 import { PrismaHelper } from "./helpers";
 const { prisma } = PrismaHelper;
 

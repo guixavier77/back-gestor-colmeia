@@ -1,5 +1,5 @@
 import { CreateApiaristParams, CreateApiaristServiceResponse } from "../../models/apiarist/createApiarist";
-import { GetAllApiaristServiceResponse } from "../../models/apiarist/getAll";
+import { GetAllApiaristServiceResponse } from "../../models/apiarist/getAllApiarist";
 import { ApiaristRepository } from "../../repositories/apiaristRepository";
 
 

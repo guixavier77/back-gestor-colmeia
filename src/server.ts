@@ -1,6 +1,5 @@
-import express from 'express';
 import cors from "cors";
-import usersRouter from './routes/users.routes';
+import express from 'express';
 import router from './routes';
 const app = express();
 const host = process.env.HOST || 'localhost';

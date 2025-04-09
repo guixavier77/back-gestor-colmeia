@@ -18,6 +18,7 @@ export type AuthServiceResponse = {
         active: boolean;
         created_at: Date;
         updated_at: Date;
+        role: string;
     }
     token?: string;
     error?: string;
@@ -40,6 +41,7 @@ export type AuthRepositoryResponse = {
         active: boolean;
         created_at: Date;
         updated_at: Date;
+        role: string;
     },
     error?: string
 }
