@@ -1,5 +1,5 @@
 
-import { CreateUserRepositoryResponse, CreateUserParams } from "../models/users/createUsers";
+import { CreateUserRepositoryResponse, CreateUserServiceParams } from "../models/users/createUsers";
 import { PrismaHelper } from "./helpers";
 
 const { prisma } = PrismaHelper;
@@ -9,7 +9,7 @@ const { prisma } = PrismaHelper;
 export class UserRepository {
 
 
-    public async create(params: CreateUserParams): Promise<CreateUserRepositoryResponse> {
+    public async create(params: CreateUserServiceParams): Promise<CreateUserRepositoryResponse> {
       const {usuarios: UsersRepository} = prisma;
 
       const alreadyUser = await UsersRepository.findFirst({

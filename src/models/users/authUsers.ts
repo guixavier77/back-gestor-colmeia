@@ -1,4 +1,4 @@
-import { CreateUserParams } from "./createUsers";
+import { CreateUserServiceParams } from "./createUsers";
 
 
 // --------- useCase -----------

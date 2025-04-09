@@ -1,7 +1,7 @@
 
-import { comparePassword } from "../../utils/password";
+import { comparePassword } from "../utils/password";
 import { AuthRepositoryParams, AuthRepositoryResponse } from "../models/users/authUsers";
-import { CreateUserRepositoryResponse, CreateUserParams } from "../models/users/createUsers";
+import { CreateUserRepositoryResponse, CreateUserServiceParams } from "../models/users/createUsers";
 import { PrismaHelper } from "./helpers";
 
 const { prisma } = PrismaHelper;

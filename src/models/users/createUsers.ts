@@ -1,4 +1,4 @@
-export interface CreateUserParams {
+export type CreateUserServiceParams = {
     cpf: string
     email: string
     name: string
@@ -6,10 +6,6 @@ export interface CreateUserParams {
     active: boolean
     role: string
     password: string
-}
-
-export interface UserUpdate extends CreateUserParams {
-    id: number;
 }
 
 

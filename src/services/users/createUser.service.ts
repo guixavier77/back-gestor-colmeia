@@ -1,10 +1,10 @@
-import { generatePassword } from "../../../utils/password";
-import { CreateUserServiceResponse, CreateUserParams } from "../../models/users/createUsers";
+import { generatePassword } from "../../utils/password";
+import { CreateUserServiceResponse, CreateUserServiceParams } from "../../models/users/createUsers";
 import { UserRepository } from "../../repositories/userRepository";
 
 class CreateUserService {
     constructor(private userRepository: UserRepository){}
-    async perform(params: CreateUserParams): Promise<CreateUserServiceResponse> { 
+    async perform(params: CreateUserServiceParams): Promise<CreateUserServiceResponse> { 
 
         try {
             const password = await generatePassword(params.password);

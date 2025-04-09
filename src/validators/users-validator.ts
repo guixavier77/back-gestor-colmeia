@@ -1,7 +1,8 @@
 import Joi from "joi"
-import { CreateUserParams, UserUpdate } from "../src/models/users/createUsers"
+import { CreateUserServiceParams } from "../models/users/createUsers"
+import { AuthServiceParams } from "../models/users/authUsers"
 
-export function validateUser(user: CreateUserParams) {
+export function validateUser(user: CreateUserServiceParams) {
 
     const JoiSchema = Joi.object({
         cpf: Joi.string().min(11).max(11),
@@ -18,7 +19,7 @@ export function validateUser(user: CreateUserParams) {
 	return JoiSchema.validate(user)
 }
 
-export function validateAuthUser(user: CreateUserParams) {
+export function validateAuthUser(user: AuthServiceParams) {
 
     const JoiSchema = Joi.object({
         email: Joi.string().required(),

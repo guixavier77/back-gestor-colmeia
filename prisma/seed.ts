@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
-import { ROLE } from '../utils/roles'
+import { ROLE } from '../src/utils/roles'
 
 const prisma = new PrismaClient()
 
@@ -10,6 +10,7 @@ const main = async () => {
 
   await prisma.usuarios.create({
     data: {
+      id: 1,
       cpf: '11052557600',
       email: 'xguilherme1@gmail.com',
       name: 'Guilherme Xavier Martins',

@@ -1,7 +1,7 @@
 import { Controller, HttpRequest, HttpResponse } from "../protocols/controller.protocols";
 // import SendEmailService from "../services/sendEmail.service";
 import { StatusCodes } from "http-status-codes";
-import { validateAuthUser } from "../../../validators/users-validator";
+import { validateAuthUser } from "../../validators/users-validator";
 import AuthUserService from "../../services/users/authUser.service";
 
 

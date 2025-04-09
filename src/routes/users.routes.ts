@@ -7,6 +7,7 @@ import CreateUserService from '../services/users/createUser.service';
 import AuthUserController from '../controllers/users/authUser.controller';
 import AuthUserService from '../services/users/authUser.service';
 import { AuthRepository } from '../repositories/authRepository';
+import auth from '../middlewares/auth';
 
 const usersRouter = Router();
 
@@ -29,8 +30,8 @@ const makeAuthUserController = (): Controller => {
 
 
 usersRouter
-  .post('/users', adapt(makeCreateUserController()))
-  .post('/auth', adapt(makeAuthUserController()));
+  .post('/users/create', auth, adapt(makeCreateUserController()))
+  .post('/users/auth', adapt(makeAuthUserController()));
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);
 // usersRouter.put('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.update);

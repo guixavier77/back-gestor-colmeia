@@ -1,27 +1,33 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { NextFunction, Request, Response } from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { verify } from 'jsonwebtoken';
 
+export default function auth(req: Request, res: Response, next: NextFunction) {
 
-interface AuthenticatedRequest extends Request {
-    user?: any; 
-}
-export function validateAuth(requiredRole?: string[]) {
-    return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-			const authHeader = req.headers.authorization;
-			const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.slice(7) : undefined;
-			if (!token) {
-					return res.status(401).send({ msg: 'Token not found' });
-			}
-			try {
-					const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as any;
-					if (requiredRole && !requiredRole.includes(decoded.role)) {
-							return res.status(403).send({ msg: 'Access denied' });
-					}
-					req.user = decoded;
-					next();
-			} catch (error) {
-					console.log(error);
-					return res.status(401).send({ msg: 'Token invalid' });
-			}
-    };
+  const headerType = req.headers.authorization?.split(' ')[0];
+
+  
+  if(headerType !== 'Bearer') {
+    return res.status(StatusCodes.FORBIDDEN).json({ error: 'Invalid authorization type' });
+  }
+  
+  const token = req.headers.authorization?.split(' ')[1];
+  const secret = process.env.JWT_SECRET || '';
+
+  if (token) {
+
+    try {
+      const user:any = verify(token ?? '', secret);
+
+      req.user = user;
+
+      next();
+    } catch (error) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ error: 'Sessão inválida ou expirada.'})
+    }
+
+  } else {
+    return res.status(StatusCodes.FORBIDDEN).json({ error: 'Token não encontrado' });
+  }
+
 }

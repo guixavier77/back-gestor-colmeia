@@ -3,7 +3,7 @@ import UsersService from "../../services/users/createUser.service";
 import { Controller, HttpRequest, HttpResponse } from "../protocols/controller.protocols";
 // import SendEmailService from "../services/sendEmail.service";
 import { StatusCodes } from "http-status-codes";
-import { validateUser } from "../../../validators/users-validator";
+import { validateUser } from "../../validators/users-validator";
 import CreateUserService from "../../services/users/createUser.service";
 
 
