@@ -54,7 +54,7 @@ export class ApiaristRepository {
 
   public async update(params: UpdateApiaristParams): Promise<UpdateApiaristRepositoryResponse> {
     const {apicultores: ApiaristRepository} = prisma;
-    const {cpf,id,latitude,longitude,name,phone} = params;
+    const {cpf,id,latitude,longitude,name,phone, active} = params;
 
     const existingCpf = await ApiaristRepository.findFirst({
       where: {
@@ -77,7 +77,8 @@ export class ApiaristRepository {
         latitude,
         longitude,
         name,
-        phone
+        phone,
+        active,
       }
     });
 

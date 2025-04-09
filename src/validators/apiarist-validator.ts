@@ -9,6 +9,7 @@ export function validateCreateApiarist(data: CreateApiaristParams) {
         phone: Joi.string().required().min(10).max(15),
         latitude: Joi.string().required(),
         longitude: Joi.string().required(),
+        active: Joi.boolean().required()
 
     })
 

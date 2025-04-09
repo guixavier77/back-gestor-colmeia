@@ -2,8 +2,13 @@ export type GetAllApiaristServiceResponse = {
   data?: {
     id: number;
     name: string;
+    phone: string;
     cpf: string;
-    phone: string
+    latitude: string;
+    longitude: string;
+    created_at: Date;
+    updated_at: Date;
+    active: boolean;
   }[],
   error?: string;
 }

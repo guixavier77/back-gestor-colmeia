@@ -5,6 +5,7 @@ export type UpdateApiaristParams = {
   phone: string;
   latitude: string;
   longitude: string;
+  active: boolean;
 }
 
 export type UpdateApiaristServiceResponse = {
@@ -15,6 +16,7 @@ export type UpdateApiaristServiceResponse = {
     phone: string;
     latitude: string;
     longitude: string;
+    active: boolean;
   },
   error?: string;
 }
