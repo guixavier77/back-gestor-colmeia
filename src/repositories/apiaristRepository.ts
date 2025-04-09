@@ -32,7 +32,8 @@ export class ApiaristRepository {
       data: {
         id: apiarist.id,
         name: apiarist.name,
-        cpf: apiarist.cpf
+        cpf: apiarist.cpf,
+        phone: apiarist.phone
       }
     }
   }

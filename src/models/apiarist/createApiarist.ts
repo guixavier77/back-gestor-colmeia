@@ -1,6 +1,7 @@
 export type CreateApiaristParams = {
   cpf: string;
   name: string;
+  phone: string;
 }
 
 export type CreateApiaristServiceResponse = {
@@ -8,6 +9,7 @@ export type CreateApiaristServiceResponse = {
     id: number;
     name: string;
     cpf: string;
+    phone: string;
   },
   error?: string;
 }

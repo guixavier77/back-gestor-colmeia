@@ -3,6 +3,7 @@ export type GetAllApiaristServiceResponse = {
     id: number;
     name: string;
     cpf: string;
+    phone: string
   }[],
   error?: string;
 }
