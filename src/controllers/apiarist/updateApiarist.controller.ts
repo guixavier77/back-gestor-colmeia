@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import { Controller, HttpRequest, HttpResponse } from "../protocols/controller.protocols";
 import CreateApiaristService from "../../services/apiarist/createApiarist.service";
-import { validateCreateApiarist } from "../../validators/apiarist-validator";
+import { validateCreateApiarist, validateUpdateApiarist } from "../../validators/apiarist-validator";
 import UpdateApiaristService from "../../services/apiarist/updateApiarist.service";
 
 
@@ -10,7 +10,7 @@ export default class UpdateApiaristController implements Controller{
 
   public async handle(req: HttpRequest):  Promise<HttpResponse>  {
     try {
-      const validate = validateCreateApiarist(req.body)
+      const validate = validateUpdateApiarist(req.body)
       const id = req.params?.id;
       if (validate.error) {
           return { statusCode: StatusCodes.BAD_REQUEST, body: validate.error.details[0].message};

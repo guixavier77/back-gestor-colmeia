@@ -12,6 +12,11 @@ import GetAllApiaristService from '../services/apiarist/getAllApiarist.service';
 import GetAllApiaristController from '../controllers/apiarist/getAllApiarist.controller';
 import UpdateApiaristService from '../services/apiarist/updateApiarist.service';
 import UpdateApiaristController from '../controllers/apiarist/updateApiarist.controller';
+import RefreshTokenUserService from '../services/users/refreshTokenUser.service';
+import RefreshTokenUserController from '../controllers/users/refreshTokenUser.controller';
+import { AuthRepository } from '../repositories/authRepository';
+import AuthApiaristService from '../services/apiarist/authApiarist.service';
+import AuthApiaristController from '../controllers/apiarist/authApiarist.controller';
 
 const apiaristRouter = Router();
 
@@ -41,6 +46,21 @@ const makeGetAllApiaristController = (): Controller => {
   return apiaristController;
 };
 
+const makeRefreshTokenUserController = (): Controller => {
+  const refreshTokenService = new RefreshTokenUserService();
+  const refreshTokenController = new RefreshTokenUserController(refreshTokenService);
+
+  return refreshTokenController;
+}
+
+
+const makeAuthApiaristController = (): Controller => {  
+  const authRepository = new AuthRepository();
+  const authApiaristrService = new AuthApiaristService(authRepository);
+  const authApiaristrController = new AuthApiaristController(authApiaristrService);
+
+  return authApiaristrController;
+};
 
 
 
@@ -50,6 +70,8 @@ apiaristRouter
   .post('/apiarist/create', auth, adapt(makeCreateApiaristController()))
   .get('/apiarist/list', auth, adapt(makeGetAllApiaristController()))
   .put('/apiarist/update/:id', auth, adapt(makeUpdateApiaristController()))
+  .get('/apiarist/refreshToken', adapt(makeRefreshTokenUserController()))
+  .post('/apiarist/auth', adapt(makeAuthApiaristController()))
 
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);

@@ -1,8 +1,6 @@
 import { StatusCodes } from "http-status-codes";
-import { Controller, HttpRequest, HttpResponse } from "../protocols/controller.protocols";
-import CreateApiaristService from "../../services/apiarist/createApiarist.service";
-import { validateCreateApiarist } from "../../validators/apiarist-validator";
 import GetAllApiaristService from "../../services/apiarist/getAllApiarist.service";
+import { Controller, HttpRequest, HttpResponse } from "../protocols/controller.protocols";
 
 
 export default class GetAllApiaristController implements Controller{

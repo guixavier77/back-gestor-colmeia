@@ -4,6 +4,8 @@ export type CreateApiaristParams = {
   phone: string;
   latitude: string;
   longitude: string;
+  email: string;
+  password: string;
 }
 
 export type CreateApiaristServiceResponse = {
@@ -12,6 +14,7 @@ export type CreateApiaristServiceResponse = {
     name: string;
     cpf: string;
     phone: string;
+    email: string;
     latitude: string;
     longitude: string;
   },

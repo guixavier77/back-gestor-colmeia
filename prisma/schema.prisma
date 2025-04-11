@@ -27,6 +27,8 @@ model Apicultores {
     cpf        String    @unique @db.VarChar(255)
     latitude   String    @db.VarChar(255)
     longitude  String    @db.VarChar(255)
+    email      String    @unique @db.VarChar(255)
+    password   String
     created_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6)
     updated_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6)
     active     Boolean?  @default(true)

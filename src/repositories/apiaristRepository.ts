@@ -36,7 +36,8 @@ export class ApiaristRepository {
         cpf: apiarist.cpf,
         phone: apiarist.phone,
         latitude: apiarist.latitude,
-        longitude: apiarist.longitude
+        longitude: apiarist.longitude,
+        email: apiarist.email
       }
     }
   }
@@ -47,8 +48,20 @@ export class ApiaristRepository {
     const apiarists = await ApiaristRepository.findMany();
 
     return { 
-      data: apiarists
+      data: apiarists.map((api) => ({
+        id: api.id,
+        name: api.name,
+        phone: api.phone,
+        cpf: api.cpf,
+        latitude: api.latitude,
+        longitude: api.longitude,
+        email: api.email,
+        active: api.active,
+        created_at: api.created_at,
+        updated_at: api.updated_at,
+      }))
     }
+    
   }
 
 

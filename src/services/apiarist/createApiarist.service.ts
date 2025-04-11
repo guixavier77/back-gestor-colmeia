@@ -1,5 +1,6 @@
 import { CreateApiaristParams, CreateApiaristServiceResponse } from "../../models/apiarist/createApiarist";
 import { ApiaristRepository } from "../../repositories/apiaristRepository";
+import { generatePassword } from "../../utils/password";
 
 
 
@@ -9,7 +10,9 @@ class CreateApiaristService {
   async perform(params: CreateApiaristParams): Promise<CreateApiaristServiceResponse> {
     try {
 
-      const response = await this.apiaristRepository.create(params);
+
+      const password = await generatePassword(params.password);
+      const response = await this.apiaristRepository.create({...params, password});
 
       if(response.data)
         return {
