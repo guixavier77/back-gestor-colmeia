@@ -8,6 +8,8 @@ import AuthUserController from '../controllers/users/authUser.controller';
 import AuthUserService from '../services/users/authUser.service';
 import { AuthRepository } from '../repositories/authRepository';
 import auth from '../middlewares/auth';
+import RefreshTokenUserService from '../services/users/refreshTokenUser.service';
+import RefreshTokenUserController from '../controllers/users/refreshTokenUser.controller';
 
 const usersRouter = Router();
 
@@ -28,10 +30,18 @@ const makeAuthUserController = (): Controller => {
   return authUserController;
 };
 
+const makeRefreshTokenUserController = (): Controller => {
+  const refreshTokenService = new RefreshTokenUserService();
+  const refreshTokenController = new RefreshTokenUserController(refreshTokenService);
+
+  return refreshTokenController;
+}
+
 
 usersRouter
   .post('/users/create', auth, adapt(makeCreateUserController()))
-  .post('/users/auth', adapt(makeAuthUserController()));
+  .post('/users/auth', adapt(makeAuthUserController()))
+  .get('/users/refreshToken', adapt(makeRefreshTokenUserController()))
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);
 // usersRouter.put('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.update);
