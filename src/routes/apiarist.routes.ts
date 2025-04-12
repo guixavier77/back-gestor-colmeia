@@ -19,6 +19,12 @@ import AuthApiaristService from '../services/apiarist/authApiarist.service';
 import AuthApiaristController from '../controllers/apiarist/authApiarist.controller';
 import UpdatePasswordApiaristController from '../controllers/apiarist/updatePasswordApiarist.controller';
 import UpdatePasswordApiaristService from '../services/apiarist/updatePasswordApiarist.service';
+import GetApiaristStatsService from '../services/apiarist/getApiaristStats.service';
+import GetApiaristStatsController from '../controllers/apiarist/getApiaristStats.controller';
+import GetApiaristStatsByPeriodService from '../services/apiarist/getApiaristStatsByPeriod.service';
+import GetApiaristStatsByPeriodController from '../controllers/apiarist/getApiaristStatsByPeriod.controller';
+import GetApiaristLatestService from '../services/apiarist/getApiaristLatest.service';
+import GetApiaristLastestController from '../controllers/apiarist/getApiaristLatest.controller';
 
 const apiaristRouter = Router();
 
@@ -72,6 +78,34 @@ const makeChangePassApiaristController = (): Controller => {
   return changePassControler;
 };
 
+const makeStatsApiaristController = (): Controller => {  
+  const apiaristRepository = new ApiaristRepository();
+  const apiristStatsService = new GetApiaristStatsService(apiaristRepository);
+  const apiaristStatsController = new GetApiaristStatsController(apiristStatsService);
+
+  return apiaristStatsController;
+};
+
+const makeStatsByPeriodApiaristController = (): Controller => {  
+  const apiaristRepository = new ApiaristRepository();
+  const apiristStatsService = new GetApiaristStatsByPeriodService(apiaristRepository);
+  const apiaristStatsController = new GetApiaristStatsByPeriodController(apiristStatsService);
+
+  return apiaristStatsController;
+};
+
+const makeLatestApiaristController = (): Controller => {  
+  const apiaristRepository = new ApiaristRepository();
+  const apiristService = new GetApiaristLatestService(apiaristRepository);
+  const apiaristController = new GetApiaristLastestController(apiristService);
+
+  return apiaristController;
+};
+
+
+
+
+
 
 
 
@@ -84,6 +118,9 @@ apiaristRouter
   .post('/apiarist/auth', adapt(makeAuthApiaristController()))
   .put('/apiarist/update/:id', auth, adapt(makeUpdateApiaristController()))
   .put('/apiarist/change/password', adapt(makeChangePassApiaristController()))
+  .get('/apiarist/stats', auth, adapt(makeStatsApiaristController()))
+  .get('/apiarist/stats/period', auth, adapt(makeStatsByPeriodApiaristController()))
+  .get('/apiarist/latest', auth, adapt(makeLatestApiaristController()))
 
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);
