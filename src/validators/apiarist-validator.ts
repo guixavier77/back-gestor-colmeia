@@ -1,5 +1,6 @@
 import Joi from "joi";
 import { CreateApiaristParams } from "../models/apiarist/createApiarist";
+import { UpdatePasswordApiaristParams } from "../models/apiarist/updatePasswordApiarist";
 
 const baseSchema = Joi.object({
   cpf: Joi.string()
@@ -48,4 +49,23 @@ export function validateCreateApiarist(data: CreateApiaristParams) {
 export function validateUpdateApiarist(data: CreateApiaristParams) {
     const updateSchema = baseSchema.fork(["password"], (field) => field.optional());
     return updateSchema.validate(data, { abortEarly: false });
+}
+
+
+export function validateUpdatePassApiarist(data: UpdatePasswordApiaristParams) {
+  const schema = Joi.object({
+    apiaristId: Joi.string().required().messages({
+      "any.required": "O Campo apiaristId é obrigatório",
+    }),
+    password: Joi.string().min(6).required().messages({
+      "string.min": "A senha deve ter pelo menos 6 caracteres",
+      "any.required": "O campo senha é obrigatório",
+    }),
+    confirmPassword: Joi.string().min(6).required().messages({
+      "string.min": "A senha deve ter pelo menos 6 caracteres",
+      "any.required": "O campo senha é obrigatório",
+    }),
+  });
+
+  return schema.validate(data, { abortEarly: false });
 }

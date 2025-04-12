@@ -3,6 +3,8 @@
 import { CreateApiaristParams, CreateApiaristRepositoryResponse } from "../models/apiarist/createApiarist";
 import { GetAllApiaristRepositoryResponse } from "../models/apiarist/getAllApiarist";
 import { UpdateApiaristParams, UpdateApiaristRepositoryResponse } from "../models/apiarist/updateApiarist";
+import { UpdatePasswordApiaristParams, UpdatePasswordApiaristServiceResponse } from "../models/apiarist/updatePasswordApiarist";
+import { generatePassword } from "../utils/password";
 import { PrismaHelper } from "./helpers";
 const { prisma } = PrismaHelper;
 
@@ -97,6 +99,38 @@ export class ApiaristRepository {
 
     return { 
       data: apiarist
+    }
+  }
+
+
+  public async updatePassword(params: UpdatePasswordApiaristParams): Promise<UpdatePasswordApiaristServiceResponse>{
+    const {apicultores: ApiaristRepository} = prisma;
+
+    const apiarist = await ApiaristRepository.update({
+      where: {
+        id: params.apiaristId,
+      },
+      data: {
+        password: params.password
+      }
+    })
+
+    if(apiarist) {
+      return {
+        data: {
+          id: apiarist.id,
+          active: apiarist.active,
+          cpf: apiarist.cpf,
+          latitude: apiarist.latitude,
+          longitude: apiarist.longitude,
+          name: apiarist.name,
+          phone: apiarist.phone
+        }
+      }
+    }
+
+    return {
+      error: 'Usuário não encontrado!'
     }
   }
 }

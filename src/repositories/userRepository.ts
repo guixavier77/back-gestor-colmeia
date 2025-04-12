@@ -9,7 +9,7 @@ const { prisma } = PrismaHelper;
 export class UserRepository {
 
 
-    public async create(params: CreateUserServiceParams): Promise<CreateUserRepositoryResponse> {
+  public async create(params: CreateUserServiceParams): Promise<CreateUserRepositoryResponse> {
       const {usuarios: UsersRepository} = prisma;
 
       const alreadyUser = await UsersRepository.findFirst({
@@ -47,4 +47,5 @@ export class UserRepository {
           updated_at: user.updated_at,
       }}
   }
+
 }
