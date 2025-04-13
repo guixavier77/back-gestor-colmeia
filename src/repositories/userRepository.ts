@@ -1,5 +1,7 @@
 
 import { CreateUserRepositoryResponse, CreateUserServiceParams } from "../models/users/createUsers";
+import { GetAllUsersRepositoryResponse } from "../models/users/getAllUsers";
+import { ROLE } from "../utils/roles";
 import { PrismaHelper } from "./helpers";
 
 const { prisma } = PrismaHelper;
@@ -46,6 +48,34 @@ export class UserRepository {
           created_at: user.created_at,
           updated_at: user.updated_at,
       }}
+  }
+
+  public async getAll(): Promise<GetAllUsersRepositoryResponse> {
+    const {usuarios: UsersRepository} = prisma;
+
+    const users = await UsersRepository.findMany({
+      where: {
+        role: {
+          not: ROLE.SUPERADMIN,
+        },
+      },
+    });
+    
+
+    return { 
+      data: users.map((user) => ({
+        id: user.id,
+        name: user.name,
+        phone: user.phone,
+        cpf: user.cpf,
+        email: user.email,
+        role: user.role,
+        active: user.active,
+        created_at: user.created_at,
+        updated_at: user.updated_at,
+      }))
+    }
+    
   }
 
 }

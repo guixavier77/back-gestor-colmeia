@@ -10,6 +10,8 @@ import { AuthRepository } from '../repositories/authRepository';
 import auth from '../middlewares/auth';
 import RefreshTokenUserService from '../services/users/refreshTokenUser.service';
 import RefreshTokenUserController from '../controllers/users/refreshTokenUser.controller';
+import GetAllUsersService from '../services/users/getAllUsers.service';
+import GetAllUsersController from '../controllers/users/getAllApiarist.controller';
 
 const usersRouter = Router();
 
@@ -38,10 +40,20 @@ const makeRefreshTokenUserController = (): Controller => {
 }
 
 
+const makeListUserController = (): Controller => {  
+  const userRepository = new UserRepository();
+  const getAllUsersService = new GetAllUsersService(userRepository);
+  const getAllUsersController = new GetAllUsersController(getAllUsersService);
+
+  return getAllUsersController;
+};
+
+
 usersRouter
   .post('/users/create', auth, adapt(makeCreateUserController()))
   .post('/users/auth', adapt(makeAuthUserController()))
   .get('/users/refreshToken', adapt(makeRefreshTokenUserController()))
+  .get('/users/list', adapt(makeListUserController()))
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);
 // usersRouter.put('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.update);
