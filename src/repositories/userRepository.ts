@@ -1,5 +1,6 @@
 
 import { CreateUserRepositoryResponse, CreateUserServiceParams } from "../models/users/createUsers";
+import {UpdateUserParams, UpdateUserRepositoryResponse} from '../models/users/updateUser';
 import { GetAllUsersRepositoryResponse } from "../models/users/getAllUsers";
 import { ROLE } from "../utils/roles";
 import { PrismaHelper } from "./helpers";
@@ -49,6 +50,46 @@ export class UserRepository {
           updated_at: user.updated_at,
       }}
   }
+
+  public async update(params: UpdateUserParams): Promise<UpdateUserRepositoryResponse> {
+    const {usuarios: UserRepository} = prisma;
+    const {cpf,id,name,email,phone, active} = params;
+
+    const existingCpf = await UserRepository.findFirst({
+      where: {
+        OR: [
+          { cpf },
+          { email },
+        ],
+        NOT: {
+          id
+        }
+      }
+    })
+
+    if(existingCpf){
+      return {error:  'CPF/Email já existe!'}
+    }
+    const user = await UserRepository.update({
+      where: {
+        id
+      },
+      data: {
+        cpf,
+        email,
+        name,
+        phone,
+        active,
+      }
+    });
+
+    delete user.password;
+
+    return { 
+      data: user
+    }
+  }
+
 
   public async getAll(): Promise<GetAllUsersRepositoryResponse> {
     const {usuarios: UsersRepository} = prisma;

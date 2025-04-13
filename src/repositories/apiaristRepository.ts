@@ -73,11 +73,14 @@ export class ApiaristRepository {
 
   public async update(params: UpdateApiaristParams): Promise<UpdateApiaristRepositoryResponse> {
     const {apicultores: ApiaristRepository} = prisma;
-    const {cpf,id,latitude,longitude,name,phone, active} = params;
+    const {cpf,id,latitude,longitude,name,phone, email, active} = params;
 
     const existingCpf = await ApiaristRepository.findFirst({
       where: {
-        cpf,
+        OR: [
+          { cpf },
+          { email },
+        ],
         NOT: {
           id
         }
@@ -85,7 +88,7 @@ export class ApiaristRepository {
     })
 
     if(existingCpf){
-      return {error:  'CPF já existe!'}
+      return {error:  'CPF/Email já existe!'}
     }
     const apiarist = await ApiaristRepository.update({
       where: {
@@ -100,6 +103,8 @@ export class ApiaristRepository {
         active,
       }
     });
+
+    delete apiarist.password;
 
     return { 
       data: apiarist

@@ -12,6 +12,8 @@ import RefreshTokenUserService from '../services/users/refreshTokenUser.service'
 import RefreshTokenUserController from '../controllers/users/refreshTokenUser.controller';
 import GetAllUsersService from '../services/users/getAllUsers.service';
 import GetAllUsersController from '../controllers/users/getAllApiarist.controller';
+import UpdateUserController from '../controllers/users/updateUser.controller';
+import UpdateUserService from '../services/users/updateUser.service';
 
 const usersRouter = Router();
 
@@ -23,6 +25,15 @@ const makeCreateUserController = (): Controller => {
 
   return createUserController;
 };
+
+const makeUpdateUserController = (): Controller => {  
+  const userRepository = new UserRepository();
+  const updateUserService = new UpdateUserService(userRepository);
+  const updateUserController = new UpdateUserController(updateUserService);
+
+  return updateUserController;
+};
+
 
 const makeAuthUserController = (): Controller => {  
   const authRepository = new AuthRepository();
@@ -50,10 +61,11 @@ const makeListUserController = (): Controller => {
 
 
 usersRouter
+  .put('/users/update/:id', auth, adapt(makeUpdateUserController()))
   .post('/users/create', auth, adapt(makeCreateUserController()))
   .post('/users/auth', adapt(makeAuthUserController()))
   .get('/users/refreshToken', adapt(makeRefreshTokenUserController()))
-  .get('/users/list', adapt(makeListUserController()))
+  .get('/users/list', auth, adapt(makeListUserController()))
 // usersRouter.post('/authUsers', usersController.auth);
 // usersRouter.get('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.getAll);
 // usersRouter.put('/users', validateAuth([ROLE.ADMIN, ROLE.SUPERADMIN]), usersController.update);

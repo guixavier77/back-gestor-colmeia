@@ -1,26 +1,22 @@
-export type UpdateApiaristParams = {
+export type UpdateUserParams = {
   id: number;
   email: string;
   cpf: string;
   name: string;
   phone: string;
-  latitude: string;
-  longitude: string;
   active: boolean;
 }
 
-export type UpdateApiaristServiceResponse = {
+export type UpdateUserServiceResponse = {
   data?: {
     id: number;
     name: string;
     email: string;
     cpf: string;
     phone: string;
-    latitude: string;
-    longitude: string;
     active: boolean;
   },
   error?: string;
 }
 
-export type UpdateApiaristRepositoryResponse = UpdateApiaristServiceResponse
+export type UpdateUserRepositoryResponse = UpdateUserServiceResponse
