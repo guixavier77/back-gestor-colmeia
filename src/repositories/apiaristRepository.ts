@@ -20,12 +20,17 @@ export class ApiaristRepository {
     const {apicultores: ApiaristRepository} = prisma;
 
     const exists = await ApiaristRepository.findFirst({
-      where: {cpf: params.cpf}
+      where: {
+        OR: [
+          { cpf: params.cpf },
+          { email: params.email }
+        ]
+      }
     })
 
     if(exists) {
       return {
-        error: 'CPF de apicultor já cadastrado.'
+        error: 'CPF/Email de apicultor já cadastrado.'
       }
     }
 
