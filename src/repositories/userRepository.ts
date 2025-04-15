@@ -80,6 +80,8 @@ export class UserRepository {
         name,
         phone,
         active,
+        updated_at: new Date()
+
       }
     });
 

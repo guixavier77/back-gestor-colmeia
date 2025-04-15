@@ -106,6 +106,7 @@ export class ApiaristRepository {
         name,
         phone,
         active,
+        updated_at: new Date()
       }
     });
 
