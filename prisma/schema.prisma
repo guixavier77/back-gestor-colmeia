@@ -17,7 +17,7 @@ model Usuarios {
     role       String
     password   String    @db.VarChar(255)
     created_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6)
-    updated_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6) 
+    updated_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6)
 }
 
 model Apicultores {
@@ -32,4 +32,16 @@ model Apicultores {
     created_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6)
     updated_at DateTime? @default(dbgenerated("CURRENT_TIMESTAMP(6)")) @db.Timestamp(6)
     active     Boolean?  @default(true)
+}
+
+model Logs {
+    id         String   @id @default(uuid())
+    level      String
+    method     String?
+    url        String?
+    statusCode Int?
+    message    String
+    context    String?
+    data       Json?
+    createdAt  DateTime @default(now())
 }
